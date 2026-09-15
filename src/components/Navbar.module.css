@@ -1,0 +1,114 @@
+/* ============================================================================
+   Navbar — navegação fixa
+   ============================================================================
+   Sem fundo próprio: a cor do texto vem de --ink e acompanha o tema da seção.
+   O container ignora cliques (pointer-events: none) para não bloquear a lata
+   ou o conteúdo por baixo; só o logo e os links recebem eventos.
+   O sublinhado cresce da esquerda ao entrar e sai pela direita ao sair
+   (troca de transform-origin).
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  color: var(--ink);
+  transition: color 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.nav > * {
+  pointer-events: auto;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.brand span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  font-size: 1.12em;
+  letter-spacing: 0;
+}
+
+.links {
+  display: flex;
+  gap: clamp(18px, 2.6vw, 42px);
+}
+
+.links a {
+  position: relative;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 8px 0;
+  opacity: 0.72;
+  transition: opacity 0.3s;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.links a:hover,
+.links a.active {
+  opacity: 1;
+}
+
+.links a:hover::after,
+.links a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.links a:focus-visible,
+.brand:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+
+.mobileLabel {
+  display: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .links {
+    display: none;
+  }
+  .mobileLabel {
+    display: block;
+  }
+  .brand {
+    font-size: 19px;
+  }
+}

@@ -1,0 +1,111 @@
+/* ============================================================================
+   Sabor — tipografia em camadas
+   ============================================================================
+   height: 220svh + filho "sticky" de 100svh = o conteúdo fica preso na tela
+   enquanto o usuário rola 120% de uma tela, tempo em que os elementos se
+   movem (parallax das etiquetas e deriva de "DIFERENTE." no fundo).
+   ========================================================================== */
+
+.flavor {
+  position: relative;
+  height: 220svh;
+  color: var(--creme);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding: calc(var(--nav-h) + 4vh) var(--gutter) 6vh;
+  overflow: hidden;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.index {
+  color: var(--rosa-claro);
+}
+
+.front {
+  position: absolute;
+  left: var(--gutter);
+  top: 17vh;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.4vw;
+}
+
+.o {
+  font-size: clamp(90px, 15vw, 280px);
+  color: var(--creme);
+}
+
+.e {
+  font-size: clamp(90px, 13vw, 240px);
+  line-height: 0.8;
+  color: var(--rosa-claro);
+}
+
+.tag {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  font-size: clamp(14px, 1.2vw, 20px);
+  letter-spacing: 0.18em;
+  padding: 0.7em 1.1em 0.6em;
+  border: 1px solid rgba(244, 235, 221, 0.55);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.tagA { left: 30%; top: 46%; }
+.tagB { left: 12%; top: 64%; }
+.tagC { left: 84%; top: 24%; background: var(--azul); color: var(--creme); border-color: var(--azul); }
+.tagD { left: 42%; top: 82%; }
+
+.copy {
+  position: absolute;
+  right: calc(var(--gutter) + 3vw);
+  bottom: 9vh;
+  max-width: 340px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.sign {
+  margin-top: 16px;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--rosa-claro);
+}
+
+@media (max-width: 767px) {
+  .front {
+    top: 15vh;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .o { font-size: 26vw; }
+  .e { font-size: 22vw; }
+  .copy {
+    left: var(--gutter);
+    right: var(--gutter);
+    top: 44vh;
+    bottom: auto;
+    max-width: none;
+    font-size: 15px;
+  }
+  .tagA { left: 60%; top: 20%; }
+  .tagB { left: 6%; top: 88%; }
+  .tagC { left: 64%; top: 92%; }
+  .tagD { display: none; }
+}

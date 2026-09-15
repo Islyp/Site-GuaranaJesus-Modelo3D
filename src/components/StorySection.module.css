@@ -1,0 +1,170 @@
+/* ============================================================================
+   História — layout editorial assimétrico
+   ============================================================================
+   O conteúdo começa a 30vw da esquerda, deixando uma coluna livre para a lata
+   (que nesta cena fica pequena, à esquerda). Abaixo de 1024px o recuo some.
+   ========================================================================== */
+
+.story {
+  position: relative;
+  min-height: 150svh;
+  padding: calc(var(--nav-h) + 12vh) var(--gutter) 14vh;
+  color: var(--tinta);
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  margin-left: 30vw;
+}
+
+.index {
+  color: var(--azul);
+  margin-bottom: 3vh;
+}
+
+.title {
+  font-size: clamp(64px, 11vw, 200px);
+}
+
+.titleLine:nth-child(2) {
+  padding-left: 12vw;
+  color: var(--azul);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6vw;
+  align-items: center;
+  margin-top: 10vh;
+  margin-left: 30vw;
+}
+
+.lead {
+  font-size: clamp(30px, 3vw, 52px);
+  max-width: 18em;
+  line-height: 1.02;
+}
+
+.stamp {
+  position: relative;
+  width: clamp(120px, 12vw, 190px);
+  aspect-ratio: 1;
+  color: var(--azul);
+}
+
+.stamp svg {
+  width: 100%;
+  height: 100%;
+  animation: rotate 26s linear infinite;
+  overflow: visible;
+}
+
+.stamp text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15.4px;
+  letter-spacing: 0.14em;
+  fill: currentColor;
+}
+
+.stamp > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(54px, 5vw, 84px);
+  color: var(--rosa);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  margin: 12vh 0 4vh 30vw;
+}
+
+.rule {
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.dividerOrnament {
+  width: 64px;
+  height: auto;
+  flex: none;
+}
+
+.facts {
+  list-style: none;
+  margin: 0 0 0 30vw;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3vw;
+}
+
+.facts li {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.factNum {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  opacity: 0.55;
+}
+
+.factBig {
+  font-size: clamp(40px, 4.4vw, 76px);
+  color: var(--azul);
+}
+
+.facts li:nth-child(2) .factBig {
+  color: var(--rosa);
+}
+
+.facts p {
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 28ch;
+  opacity: 0.8;
+}
+
+@keyframes rotate {
+  to { rotate: 360deg; }
+}
+
+@media (max-width: 1024px) {
+  .head, .body, .divider, .facts { margin-left: 0; }
+}
+
+@media (max-width: 767px) {
+  .story {
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + 8vh);
+    padding-bottom: 50svh;
+  }
+  .title { font-size: 19vw; }
+  .titleLine:nth-child(2) { padding-left: 8vw; }
+  .body {
+    grid-template-columns: 1fr;
+    margin-top: 6vh;
+    gap: 5vh;
+  }
+  .stamp { order: 2; }
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 5vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp svg { animation: none; }
+}

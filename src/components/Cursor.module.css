@@ -1,0 +1,94 @@
+/* ============================================================================
+   Cursor — ponto + anel
+   ============================================================================
+   Estados (classes aplicadas por Cursor.tsx):
+     .hover    sobre links e botões → anel expande
+     .can      sobre a lata         → círculo azul pequeno com "girar"
+     .grabbing arrastando a lata    → contrai e inverte as cores
+   As mudanças de tamanho usam transition (não GSAP): são respostas de estado,
+   enquanto a posição (x/y) é animada pelo GSAP.
+   ========================================================================== */
+
+.dot,
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  pointer-events: none;
+  border-radius: 50%;
+  display: none;
+}
+
+@media (pointer: fine) {
+  .dot,
+  .ring {
+    display: block;
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--ink);
+  transition: transform 0.35s var(--ease-out), background 0.6s;
+}
+
+.ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  transition: width 0.45s var(--ease-out), height 0.45s var(--ease-out), margin 0.45s var(--ease-out),
+    border-color 0.6s, background 0.45s, color 0.45s;
+}
+
+.ring.hover {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  border-color: var(--ink);
+}
+
+/* sobre a lata */
+.ring.can {
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  background: var(--azul);
+  border-color: var(--azul);
+  color: var(--creme);
+}
+
+.ring.can.grabbing {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background: var(--creme);
+  border-color: var(--creme);
+  color: var(--azul);
+}
+
+.label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s, transform 0.45s var(--ease-out);
+}
+
+.ring.can .label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dot.hover {
+  transform: scale(0);
+}

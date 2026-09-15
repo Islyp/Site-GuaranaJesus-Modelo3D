@@ -1,0 +1,214 @@
+/* ============================================================================
+   Hero — abertura
+   ============================================================================
+   Grid de 3 linhas (topo / título / base). Unidades svh ("small viewport
+   height") garantem que a composição caiba na tela do celular mesmo com a
+   barra do navegador visível. No mobile, o padding inferior reserva a metade
+   de baixo da tela para a lata.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: calc(var(--nav-h) + 3vh) var(--gutter) 5vh;
+  color: var(--creme);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-right: 4vw;
+}
+
+.sep {
+  opacity: 0.5;
+  margin: 0 0.6em;
+}
+
+/* Selo oval "desde 1927", eco do logo da lata: border-radius 50% num elemento
+   retangular gera uma elipse; o box-shadow duplo desenha contorno + margem creme */
+.since {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 22px 9px;
+  border-radius: 50%;
+  background: var(--creme);
+  color: var(--azul);
+  box-shadow: inset 0 0 0 2px var(--azul), 0 0 0 5px var(--creme);
+  rotate: -4deg;
+  align-self: flex-start;
+}
+
+.sinceSmall {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+}
+
+.sinceYear {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+}
+
+.title {
+  align-self: center;
+  margin: 2vh 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.guarana,
+.jesus {
+  display: block;
+}
+
+.guarana {
+  font-size: clamp(64px, 11.5vw, 210px);
+  color: var(--rosa-claro);
+  opacity: 0.92;
+  margin-left: 0.4vw;
+}
+
+.jesus {
+  font-size: clamp(120px, 25vw, 470px);
+  line-height: 0.74;
+  margin-top: -0.02em;
+  color: var(--creme);
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.headlineWrap {
+  max-width: 440px;
+}
+
+.rule {
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin-bottom: 20px;
+  background: var(--azul);
+  box-shadow: 18px 0 0 var(--creme);
+}
+
+.headline {
+  font-size: clamp(28px, 2.8vw, 46px);
+  line-height: 0.92;
+}
+
+.sub {
+  margin-top: 14px;
+  font-size: clamp(22px, 1.9vw, 30px);
+  color: var(--rosa-claro);
+}
+
+.dragHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--creme);
+}
+
+.dragIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--azul);
+  font-size: 13px;
+  letter-spacing: 0;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+
+.hintTouch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .hintFine { display: none; }
+  .hintTouch { display: inline; }
+}
+
+@keyframes nudge {
+  0%, 60%, 100% { translate: 0 0; }
+  70% { translate: -4px 0; }
+  85% { translate: 4px 0; }
+}
+
+.scroll {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 3vw;
+}
+
+.scrollLine {
+  position: relative;
+  width: 1px;
+  height: 64px;
+  overflow: hidden;
+  background: rgba(244, 235, 221, 0.3);
+}
+
+.scrollLine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--creme);
+  animation: drop 2.2s var(--ease-out) infinite;
+}
+
+@keyframes drop {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(100%); }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-bottom: 46svh;
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    gap: 2vh;
+  }
+  .since,
+  .scroll {
+    display: none;
+  }
+  .title {
+    margin: 2vh 0 0;
+  }
+  .guarana {
+    font-size: 21vw;
+  }
+  .jesus {
+    font-size: 40vw;
+  }
+  .headline {
+    font-size: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollLine::after,
+  .dragIcon {
+    animation: none;
+  }
+}

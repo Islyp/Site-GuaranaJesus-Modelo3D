@@ -1,0 +1,22 @@
+/* ============================================================================
+   GuaranaScene — palco do canvas 3D
+   ============================================================================
+   Fixo e em tela cheia, na camada 1 (acima do fundo, abaixo do conteúdo).
+   pointer-events: none → cliques e seleção de texto atravessam o canvas;
+   a interação com a lata é detectada por geometria (useCanInteraction.ts).
+   100lvh: altura da viewport "grande" no mobile, para o canvas não pular
+   quando a barra de endereço do navegador aparece/some.
+   ========================================================================== */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100lvh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.stage canvas {
+  display: block;
+}

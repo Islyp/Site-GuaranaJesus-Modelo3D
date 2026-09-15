@@ -1,0 +1,53 @@
+/* ============================================================================
+   variables.css — design tokens
+   ============================================================================
+   Todas as decisões visuais globais em um só lugar: paleta, tipografia,
+   espaçamentos e curvas de animação. Componentes nunca usam cores "soltas";
+   sempre var(--token), o que mantém a identidade consistente.
+
+   Paleta: parte das cores da embalagem (rosa, azul, creme) e se expande em
+   tons de narrativa (magenta, vermelho, vinho) — cada seção tem a sua cor.
+   ========================================================================== */
+
+:root {
+  /* Paleta — narrativa de cor por seção */
+  --rosa: #e5177b;
+  --rosa-quente: #ff3d96;
+  --rosa-claro: #f7cadb;
+  --creme: #f4ebdd;
+  --creme-escuro: #e7d8c2;
+  --magenta: #a8004f;
+  --vermelho: #b3121f;
+  --vermelho-escuro: #6d0a17;
+  --vinho: #1c0610;
+  --vinho-medio: #3a0a1c;
+  --tinta: #22060f;
+  --metal: #c9ccd1;
+  /* Azul da embalagem */
+  --azul: #2a4a9f;
+  --azul-escuro: #1b3378;
+  --azul-claro: #a9bdf2;
+
+  /* Tipografia */
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  /* Escala — clamp() cresce com a tela, mas com limites mínimo e máximo */
+  --gutter: clamp(20px, 4vw, 64px);
+  --nav-h: 76px;
+
+  /* Movimento — "expo out": arranque rápido e pouso suave, mesma curva do GSAP */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Tema dinâmico — "ink" é a cor de texto da INTERFACE fixa (navegação,
+     cursor, contador). Muda conforme a seção ativa via data-theme no <html>,
+     aplicado por sectionTransitions.ts. Padrão: texto creme (seções escuras). */
+  --ink: var(--creme);
+  --ink-soft: color-mix(in srgb, var(--creme) 72%, transparent);
+}
+
+:root[data-theme="dark"] {
+  --ink: var(--tinta);
+  --ink-soft: color-mix(in srgb, var(--tinta) 68%, transparent);
+}

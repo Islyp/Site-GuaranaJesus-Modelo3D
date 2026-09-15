@@ -1,0 +1,156 @@
+/* ============================================================================
+   Produto — seção presa com legendas
+   ============================================================================
+   300svh de altura com conteúdo sticky: 2 telas de rolagem para a lata dar a
+   volta completa e as quatro legendas aparecerem.
+
+   As legendas são posicionadas em vw/vh em torno do centro da tela (onde a
+   lata está). As da esquerda invertem a direção (row-reverse) para a linha-guia
+   sempre apontar para a lata.
+   ========================================================================== */
+
+.product {
+  position: relative;
+  height: 300svh;
+  color: var(--tinta);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.head {
+  position: absolute;
+  top: calc(var(--nav-h) + 3vh);
+  left: var(--gutter);
+}
+
+.index {
+  color: var(--azul);
+  margin-bottom: 2vh;
+}
+
+.title {
+  font-size: clamp(56px, 7.6vw, 140px);
+}
+
+.title > span:nth-child(2) {
+  color: var(--rosa);
+}
+
+/* Legendas ao redor da lata (centro da tela) */
+.callout {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: min(30vw, 400px);
+}
+
+.line {
+  flex: none;
+  width: 7vw;
+  height: 1px;
+  margin-top: 9px;
+  background: var(--azul);
+}
+
+.calloutBody {
+  display: grid;
+  gap: 4px;
+}
+
+.num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--azul);
+}
+
+.label {
+  font-size: clamp(30px, 2.8vw, 48px);
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 26ch;
+  opacity: 0.78;
+}
+
+/* esquerda: linha aponta para dentro (lado direito) */
+.c1,
+.c3 {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.c1 .calloutBody,
+.c3 .calloutBody {
+  justify-items: end;
+}
+.c1 .line,
+.c3 .line {
+  transform-origin: left;
+}
+.c2 .line,
+.c4 .line {
+  transform-origin: right;
+}
+
+.c1 { right: 60vw; top: 40vh; }
+.c2 { left: 60vw; top: 30vh; }
+.c3 { right: 62vw; top: 66vh; }
+.c4 { left: 60vw; top: 62vh; }
+
+.specs {
+  color: var(--azul);
+  position: absolute;
+  left: 50%;
+  bottom: 5vh;
+  translate: -50% 0;
+  display: flex;
+  gap: 3vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .head {
+    top: calc(var(--nav-h) + 1vh);
+  }
+  .title {
+    font-size: 15vw;
+  }
+  .callout {
+    width: 44vw;
+    gap: 8px;
+  }
+  .line {
+    display: none;
+  }
+  .label {
+    font-size: 22px;
+  }
+  .text {
+    font-size: 12px;
+  }
+  .c1 { right: auto; left: var(--gutter); top: 30vh; flex-direction: row; text-align: left; }
+  .c2 { left: auto; right: var(--gutter); top: 30vh; flex-direction: row-reverse; text-align: right; }
+  .c3 { right: auto; left: var(--gutter); top: 41vh; flex-direction: row; text-align: left; }
+  .c4 { left: auto; right: var(--gutter); top: 41vh; flex-direction: row-reverse; text-align: right; }
+  .c1 .calloutBody, .c3 .calloutBody { justify-items: start; }
+  .c2 .calloutBody, .c4 .calloutBody { justify-items: end; }
+  .specs {
+    gap: 5vw;
+    font-size: 9px;
+  }
+}

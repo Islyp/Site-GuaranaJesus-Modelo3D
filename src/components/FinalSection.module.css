@@ -1,0 +1,186 @@
+/* ============================================================================
+   Final — encerramento de filme
+   ============================================================================
+   Desktop: o bloco de texto é "sticky" no rodapé (bottom: 0), então ele sobe
+   junto com o fim da página e termina logo acima dos créditos.
+
+   Proteção contra telas baixas: os tamanhos de fonte usam min(vw, vh) — o
+   título escala pela largura, mas nunca passa de uma fração da altura. Assim
+   nada fica escondido sob as faixas de cinema em monitores largos e baixos.
+
+   Mobile: vira uma tela única (100svh) com texto no topo, lata no meio e
+   créditos embaixo.
+   ========================================================================== */
+
+.final {
+  position: relative;
+  min-height: 130svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--creme);
+}
+
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  /* mesma altura da navegação: os links ficam inteiros dentro da faixa */
+  height: var(--nav-h);
+  background: #000;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+.barTop {
+  top: 0;
+  transform-origin: top;
+}
+
+.barBottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+.inner {
+  position: sticky;
+  bottom: 0;
+  /* respiro acima e abaixo das faixas de cinema (altura = --nav-h) */
+  padding: calc(var(--nav-h) + 3vh) var(--gutter) calc(var(--nav-h) + 5vh);
+}
+
+.index {
+  color: var(--azul-claro);
+  margin-bottom: 3vh;
+}
+
+.title {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.guarana,
+.jesus {
+  display: block;
+}
+
+.guarana {
+  /* limitado também pela altura da tela, para nunca entrar sob a faixa */
+  font-size: clamp(44px, min(9vw, 12vh), 170px);
+  color: var(--creme);
+}
+
+.jesus {
+  font-size: clamp(96px, min(27vw, 38vh), 520px);
+  line-height: 0.72;
+  color: var(--rosa);
+  margin-left: -0.6vw;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-top: 4vh;
+}
+
+.sub {
+  font-size: clamp(24px, min(3vw, 5vh), 52px);
+  line-height: 0.92;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 30px;
+  border: 1px solid var(--creme);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s var(--ease-out);
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--azul);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  color: var(--creme);
+  border-color: var(--azul);
+}
+
+.cta:hover::before,
+.cta:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.cta svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.cta:hover svg {
+  transform: translateX(6px);
+}
+
+.credits {
+  position: relative;
+  z-index: 41;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 var(--gutter);
+  height: var(--nav-h);
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 235, 221, 0.6);
+}
+
+@media (max-width: 767px) {
+  /* mobile: texto no topo, lata na metade de baixo, créditos no rodapé */
+  .final {
+    min-height: 100svh;
+    justify-content: space-between;
+  }
+  .inner {
+    position: relative;
+    padding-bottom: 0;
+  }
+  .guarana { font-size: min(17vw, 10vh); }
+  .jesus { font-size: min(36vw, 22vh); }
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-top: 3vh;
+  }
+  .cta {
+    padding: 14px 20px;
+    font-size: 11px;
+  }
+  .credits span:nth-child(2) {
+    display: none;
+  }
+  .credits {
+    font-size: 8px;
+  }
+}

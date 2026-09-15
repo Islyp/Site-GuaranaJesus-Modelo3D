@@ -1,0 +1,304 @@
+/* ============================================================================
+   BackgroundLayer — painéis de cor e grafismos
+   ============================================================================
+   Nota técnica importante: vários grafismos usam as propriedades CSS
+   INDIVIDUAIS "translate" e "rotate" (em vez de "transform"). Motivo: o GSAP
+   anima "transform" para o parallax; se o CSS também usasse transform
+   (para centralizar ou girar), um sobrescreveria o outro. As propriedades
+   individuais se COMPÕEM com o transform do GSAP.
+   ========================================================================== */
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  height: 100lvh;
+  background: var(--panel);
+  will-change: transform;
+}
+
+/* Antes do JavaScript posicionar os painéis, os seguintes ficam fora da tela
+   (evita um "flash" de cores empilhadas no primeiro paint) */
+.panel:not(:first-child) {
+  transform: translateY(110lvh);
+}
+
+/* Crista e faixa ficam logo ACIMA do painel (bottom: 100%) e crescem a partir
+   da base (transform-origin inferior). Começam achatadas (scaleY 0). */
+.crest,
+.ribbon {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: calc(100% - 1px);
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  display: block;
+}
+
+.crest {
+  height: 18vh;
+}
+
+.ribbon {
+  height: 26vh;
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ---------------- HERO ----------------
+   Raios de sol (conic-gradient) com máscara radial, girando devagar. */
+.heroGlow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60vw 60vw at 72% 52%, rgba(255, 110, 180, 0.55), transparent 60%),
+    radial-gradient(50vw 40vw at 10% 100%, rgba(120, 0, 50, 0.35), transparent 70%);
+}
+
+.sunburst {
+  position: absolute;
+  width: 170vmax;
+  height: 170vmax;
+  left: 72%;
+  top: 52%;
+  margin: -85vmax 0 0 -85vmax;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.075) 0deg 5deg, transparent 5deg 15deg);
+  mask-image: radial-gradient(circle, #000 0%, transparent 55%);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 55%);
+  animation: spin 120s linear infinite;
+}
+
+.heroRing {
+  position: absolute;
+  width: 58vmin;
+  height: 58vmin;
+  left: 72%;
+  top: 52%;
+  margin: -29vmin 0 0 -29vmin;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 235, 221, 0.35);
+  box-shadow: 0 0 0 7vmin rgba(244, 235, 221, 0.04);
+}
+
+.heroMedallion {
+  position: absolute;
+  left: 72%;
+  top: 52%;
+  width: 36vmin;
+  translate: -50% -50%;
+  opacity: 0.28;
+}
+
+.heroMedallion svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------- HISTÓRIA ----------------
+   Grade de 6 colunas (estética de diagramação) + ano gigante quase transparente. */
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(34, 6, 15, 0.08) 1px, transparent 1px);
+  background-size: calc(100% / 6) 100%;
+}
+
+.bigYear {
+  position: absolute;
+  right: -2vw;
+  bottom: -6vh;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: 44vw;
+  line-height: 0.8;
+  color: rgba(42, 74, 159, 0.055);
+  letter-spacing: -0.04em;
+}
+
+/* ---------------- SABOR ----------------
+   Blobs orgânicos: border-radius com 8 valores animado (morph) — formas vivas
+   sem SVG nem canvas. "DIFERENTE." usa mix-blend-mode para fundir com os blobs. */
+.blob {
+  position: absolute;
+  border-radius: 43% 57% 62% 38% / 45% 38% 62% 55%;
+  animation: morph 18s ease-in-out infinite alternate;
+}
+
+.blobA {
+  width: 62vmax;
+  height: 62vmax;
+  left: -18vmax;
+  top: -10vmax;
+  background: radial-gradient(circle at 40% 40%, #e5177b, #c3005f 70%);
+}
+
+.blobB {
+  width: 40vmax;
+  height: 40vmax;
+  right: -10vmax;
+  bottom: -14vmax;
+  background: radial-gradient(circle at 45% 40%, #3a5cb8, #1b3378 75%);
+  animation-duration: 23s;
+  animation-direction: alternate-reverse;
+}
+
+.giantWord {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -52%;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  font-size: 27vw;
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  color: var(--rosa-quente);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* ---------------- PRODUTO ----------------
+   Luz de vitrine atrás da lata e anéis concêntricos (um deles tracejado, girando). */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(38vmax 38vmax at 50% 52%, rgba(255, 255, 255, 0.85), transparent 70%),
+    linear-gradient(180deg, transparent 60%, rgba(229, 23, 123, 0.18));
+}
+
+.rings {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+}
+
+.rings span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(34, 6, 15, 0.14);
+  translate: -50% -50%;
+}
+
+.rings span:nth-child(1) { width: 52vmin; height: 52vmin; }
+.rings span:nth-child(2) { width: 80vmin; height: 80vmin; border-style: dashed; border-color: rgba(42, 74, 159, 0.35); animation: spin 90s linear infinite; }
+.rings span:nth-child(3) { width: 118vmin; height: 118vmin; }
+
+/* ---------------- MARANHÃO ----------------
+   Parede de azulejos inclinada + fitas de bumba-meu-boi balançando.
+   Cada fita recebe --c (cor) e --i (índice) inline; o índice defasa a animação. */
+.azulejos {
+  position: absolute;
+  inset: -20vh 0;
+  width: 100%;
+  height: calc(100% + 40vh);
+  color: rgba(244, 235, 221, 0.22);
+}
+
+.tileWall {
+  position: absolute;
+  right: -6vw;
+  top: 10vh;
+  width: 40vw;
+  height: 78vh;
+  rotate: -5deg;
+  filter: drop-shadow(0 40px 60px rgba(60, 0, 10, 0.35));
+}
+
+/* borda irregular: azulejos faltando, como numa fachada antiga */
+.tiles {
+  display: block;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 12%, 14% 12%, 14% 0, 100% 0, 100% 100%, 28% 100%, 28% 88%, 0 88%);
+}
+
+.fitas {
+  position: absolute;
+  top: 0;
+  right: 12vw;
+  display: flex;
+  gap: 1.2vw;
+}
+
+.fitas span {
+  display: block;
+  width: 1.1vw;
+  min-width: 8px;
+  height: calc(28vh + var(--i) * 3vh);
+  background: var(--c);
+  opacity: 0.85;
+  transform-origin: top center;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 94%, 0 100%);
+  animation: sway 4.2s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.5s);
+}
+
+/* ---------------- FINAL ----------------
+   Brilho rosa + feixes de luz de palco (conic-gradient desfocado). */
+.finalGlow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50vmax 40vmax at 62% 55%, rgba(229, 23, 123, 0.45), transparent 65%),
+    radial-gradient(80vmax 50vmax at 50% 120%, rgba(179, 18, 31, 0.5), transparent 70%),
+    radial-gradient(40vmax 40vmax at 8% 20%, rgba(42, 74, 159, 0.35), transparent 70%);
+}
+
+.beams {
+  position: absolute;
+  left: 62%;
+  bottom: -30vh;
+  width: 140vmax;
+  height: 140vmax;
+  margin-left: -70vmax;
+  background: repeating-conic-gradient(from -30deg at 50% 100%, rgba(255, 120, 180, 0.09) 0deg 3deg, transparent 3deg 7deg, rgba(90, 120, 220, 0.07) 7deg 9deg, transparent 9deg 13deg);
+  mask-image: radial-gradient(circle at 50% 100%, #000 0%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at 50% 100%, #000 0%, transparent 60%);
+  filter: blur(6px);
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+@keyframes morph {
+  0% { border-radius: 43% 57% 62% 38% / 45% 38% 62% 55%; rotate: 0deg; }
+  100% { border-radius: 60% 40% 35% 65% / 55% 62% 38% 45%; rotate: 40deg; }
+}
+
+@keyframes sway {
+  from { rotate: -4deg; }
+  to { rotate: 4deg; }
+}
+
+@media (max-width: 767px) {
+  .giantWord { font-size: 34vw; top: 76%; }
+  .bigYear { font-size: 70vw; }
+  .sunburst, .heroRing, .heroMedallion { left: 50%; top: 72%; }
+  .tileWall { width: 46vw; height: 30vh; top: auto; bottom: 4vh; right: -10vw; }
+  .fitas { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sunburst, .blob, .fitas span, .rings span { animation: none; }
+}

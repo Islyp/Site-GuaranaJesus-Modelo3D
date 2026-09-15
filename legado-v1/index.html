@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guaraná Jesus — O sonho cor-de-rosa</title>
+  <meta name="description" content="Conheça a lata de Guaraná Jesus em 3D. O refrigerante cor-de-rosa do Maranhão, desde 1920.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500&family=Outfit:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <span class="loader-word">Jesus</span>
+    <span class="loader-bar"><span></span></span>
+  </div>
+
+  <canvas id="can-canvas" aria-label="Modelo 3D da lata de Guaraná Jesus" role="img"></canvas>
+
+  <header class="nav">
+    <a href="#inicio" class="brand"><small>Guaraná</small><span>Jesus</span></a>
+    <nav>
+      <a href="#sabor">Sabor</a>
+      <a href="#historia">História</a>
+      <a href="#lata360">Lata 360°</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="section hero" data-can="0.25,0,1.22,0.18,-0.12">
+      <div class="copy">
+        <p class="eyebrow">Refrigerante do Maranhão · desde 1920</p>
+        <h1>O sonho <em>cor-de-rosa</em></h1>
+        <p class="lead">Doce, perfumado e inconfundível. Gire a lata, sinta a cor e descubra por que o Guaraná Jesus é patrimônio do paladar maranhense.</p>
+        <div class="actions">
+          <a href="#lata360" class="btn btn-primary">Ver lata em 360°</a>
+          <a href="#historia" class="btn btn-ghost">Nossa história</a>
+        </div>
+      </div>
+      <p class="scroll-hint">Role para descobrir <span aria-hidden="true">↓</span></p>
+    </section>
+
+    <section id="sabor" class="section right" data-can="-0.24,0.02,1.1,-0.1,0.22">
+      <div class="copy">
+        <p class="eyebrow">O sabor</p>
+        <h2>Nada tem gosto de <em>Jesus</em></h2>
+        <p class="lead">Uma receita criada há mais de um século em São Luís, com notas marcantes que lembram cravo e canela — e aquela cor rosada que ninguém esquece.</p>
+        <ul class="notes">
+          <li><span class="dot" style="--c:#b3122f"></span><div><strong>Guaraná</strong><p>A base frutada e refrescante.</p></div></li>
+          <li><span class="dot" style="--c:#7a3b1d"></span><div><strong>Cravo &amp; canela</strong><p>O perfume doce que é a assinatura da bebida.</p></div></li>
+          <li><span class="dot" style="--c:#ec1e79"></span><div><strong>Cor-de-rosa</strong><p>Impossível confundir com qualquer outro.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="historia" class="section" data-can="0.26,-0.02,1.12,0.35,0.3">
+      <div class="copy">
+        <p class="eyebrow">A história</p>
+        <h2>Nascido numa <em>farmácia</em> de São Luís</h2>
+        <ol class="timeline">
+          <li><span class="year">1920</span><p>O farmacêutico Jesus Norberto Gomes cria, em São Luís, a fórmula do refrigerante que levaria seu nome.</p></li>
+          <li><span class="year">Décadas</span><p>A bebida cor-de-rosa ganha as mesas, festas e mercados do Maranhão e vira símbolo da identidade local.</p></li>
+          <li><span class="year">2001</span><p>A marca passa a integrar o portfólio da Coca-Cola, mantendo o sabor e o jeito maranhense.</p></li>
+          <li><span class="year">Hoje</span><p>Um orgulho regional que atravessa gerações — e agora pode ser explorado em 3D.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="lata360" class="section center" data-can="0,-0.17,1.15,0,0">
+      <div class="copy top">
+        <p class="eyebrow">Lata 360°</p>
+        <h2>Explore cada detalhe</h2>
+        <p class="lead small">Arraste para girar. Deixe gelada, veja o topo ou pare o giro automático.</p>
+      </div>
+      <div class="controls" role="group" aria-label="Controles da lata 3D">
+        <button class="chip" data-action="spin" aria-pressed="true">Giro automático</button>
+        <button class="chip" data-action="cold" aria-pressed="false">Gelada</button>
+        <button class="chip" data-action="top" aria-pressed="false">Ver o topo</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <p class="brand big"><small>Guaraná</small><span>Jesus</span></p>
+      <p>O sonho cor-de-rosa do Maranhão.</p>
+    </div>
+    <p class="fine">Site conceitual · modelo 3D e imagens meramente ilustrativos.</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
